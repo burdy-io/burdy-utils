@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+	"target": "es6",
+	"lib": [
+	  "dom",
+	  "dom.iterable",
+	  "esnext"
+	],
+	"skipLibCheck": true,
+	"esModuleInterop": true,
+	"removeComments": true,
+	"strict": true,
+	"forceConsistentCasingInFileNames": true,
+	"module": "esnext",
+	"moduleResolution": "node",
+	"resolveJsonModule": true,
+	"isolatedModules": true,
+	"noEmit": true,
+	"jsx": "preserve"
+  },
+  "include": [
+	"packages/*/src"
+  ]
+}

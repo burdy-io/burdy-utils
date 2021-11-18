@@ -1,0 +1,25 @@
+{
+  "name": "@burdy/react-utils",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "Team Burdy <team@burdy.io>",
+  "homepage": "https://burdy.io",
+  "license": "MIT",
+  "main": "lib/react-utils.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rimraf dist/ && tsc && yarn copy-files",
+    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md"
+  },
+  "dependencies": {
+    "@burdy/web-utils": "^1.0.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.35"
+  }
+}
