@@ -10,8 +10,7 @@
   },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
-    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
-    "prepublishOnly": "yarn build"
+    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE"
   },
   "dependencies": {
     "@burdy-cms/web-utils": "^1.0.0"
@@ -21,5 +20,6 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.35"
-  }
+  },
+  "gitHead": "b8ebbc3f4a4c32b1de11658c1bbaf90cabb724c0"
 }
