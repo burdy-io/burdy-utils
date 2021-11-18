@@ -10,10 +10,11 @@
   },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
-    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE"
+    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@burdy-cms/web-utils": "^1.0.0"
+    "@burdy-cms/web-utils": "^0.0.0"
   },
   "peerDependencies": {
     "react": "^17.0.2 || ^18.0.0"
