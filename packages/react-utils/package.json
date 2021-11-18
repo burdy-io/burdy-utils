@@ -1,6 +1,6 @@
 {
   "name": "@burdy-cms/react-utils",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Burdy react utilities",
   "author": "Team Burdy <team@burdy.io>",
   "homepage": "https://burdy.io",
@@ -21,5 +21,6 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.35"
-  }
+  },
+  "gitHead": "b8ebbc3f4a4c32b1de11658c1bbaf90cabb724c0"
 }
