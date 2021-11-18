@@ -1,9 +1,9 @@
 {
   "name": "@burdy/web-utils",
   "version": "0.0.0",
-  "description": "> TODO: description",
+  "description": "Burdy web utilities",
   "author": "Team Burdy <team@burdy.io>",
-  "homepage": "",
+  "homepage": "https://burdy.io",
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",

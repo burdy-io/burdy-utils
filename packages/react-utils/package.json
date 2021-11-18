@@ -1,11 +1,10 @@
 {
   "name": "@burdy/react-utils",
   "version": "0.0.0",
-  "description": "> TODO: description",
+  "description": "Burdy react utilities",
   "author": "Team Burdy <team@burdy.io>",
   "homepage": "https://burdy.io",
   "license": "MIT",
-  "main": "lib/react-utils.js",
   "publishConfig": {
     "access": "public"
   },
