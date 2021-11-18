@@ -5,7 +5,7 @@
   "scripts": {
     "start": "lerna run start --parallel",
     "build": "lerna run build --parallel",
-    "publish": "lerna publish --contents dist",
+    "publish:packages": "lerna publish --contents dist",
     "test": "CI=true lerna run test --parallel",
     "typecheck": "lerna run typecheck --parallel",
     "lint": "lerna run lint --parallel",
