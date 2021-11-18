@@ -1,5 +1,5 @@
 {
-  "name": "@burdy/react-utils",
+  "name": "@burdy-cms/react-utils",
   "version": "0.0.0",
   "description": "Burdy react utilities",
   "author": "Team Burdy <team@burdy.io>",
@@ -13,7 +13,7 @@
     "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE"
   },
   "dependencies": {
-    "@burdy/web-utils": "^1.0.0"
+    "@burdy-cms/web-utils": "^1.0.0"
   },
   "peerDependencies": {
     "react": "^17.0.2 || ^18.0.0"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IBurdyImage } from '@burdy/web-utils';
+import { IBurdyImage } from '@burdy-cms/web-utils';
 
 export type ImageProps = IBurdyImage & React.HTMLAttributes<HTMLImageElement>;
 

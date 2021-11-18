@@ -1,4 +1,4 @@
-import { IBurdyPage, subscribeToPreview, updatePreview } from '@burdy/web-utils';
+import { IBurdyPage, subscribeToPreview, updatePreview } from '@burdy-cms/web-utils';
 import { useEffect, useState } from 'react';
 
 const usePreview = <T>(originalPage: IBurdyPage<any>) => {

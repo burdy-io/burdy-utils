@@ -7,7 +7,7 @@ Powerful utilities to simplify usage of the [Burdy](https://burdy.io) on the web
 ## Instalation
 
 ```sh
-npm i @burdy/react-utils
+npm i @burdy-cms/react-utils
 ```
 
 ## Functionalities
@@ -18,7 +18,7 @@ Creates a `RewritesObject` instance that can be used to rewrite paths based on t
 
 Accepts `rewriteMap` and `origin` (optional) as object parameters.
 ```ts
-import { createRewrites } from '@burdy/web-utils'; 
+import { createRewrites } from '@burdy-cms/web-utils'; 
 import axios from 'axios';
 
 const rewrites = createRewrites({
@@ -64,7 +64,7 @@ Creates a `RewritesObject` instance that can be used to rewrite paths based on t
 
 Accepts `rewriteMap` and `origin` (optional) as object parameters.
 ```ts
-import { createRewrites } from '@burdy/react-utils'; 
+import { createRewrites } from '@burdy-cms/react-utils'; 
 import axios from 'axios';
 
 const rewrites = createRewrites({
@@ -110,7 +110,7 @@ Burdy hook that allows you to easily subscribe (bind the data) and update the pr
 
 ```tsx
 // Next.js example [[...slug]].tsx
-import { usePreview } from '@burdy/react-utils';
+import { usePreview } from '@burdy-cms/react-utils';
 
 const Page = (props) => {
   // Will listen to Burdy for content updates and communicate updates to Burdy
@@ -164,7 +164,7 @@ export const getServeSideProps: GetServerSideProps = async (context) => {
 Component for handling richtextToHtml:
 
 ```tsx
-import { RichText } from '@burdy/react-utils';
+import { RichText } from '@burdy-cms/react-utils';
 
 const SomeComponent = () => (
   <RichText richText={BURDY_CONTENT} />
@@ -178,7 +178,7 @@ A function for converting Richtext (DraftJS) Editor content to plain HTML.
 This is a forked version of `draftjs-to-html` [draftjs-to-html](https://www.npmjs.com/package/draftjs-to-html) created by [Jyoti Puri](https://github.com/jpuri).
 
 ```ts
-import { richtextToHtml } from '@burdy/react-utils';
+import { richtextToHtml } from '@burdy-cms/react-utils';
 
 const rawContentState = BURDY_RICHTEXT_RESPONSE;
 

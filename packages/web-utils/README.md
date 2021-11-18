@@ -7,7 +7,7 @@ Powerful utilities to simplify usage of the [Burdy](https://burdy.io) on the web
 ## Instalation
 
 ```sh
-npm i @burdy/web-utils
+npm i @burdy-cms/web-utils
 ```
 
 ## Functionalities
@@ -18,7 +18,7 @@ Creates a `RewritesObject` instance that can be used to rewrite paths based on t
 
 Accepts `rewriteMap` and `origin` (optional) as object parameters.
 ```ts
-import { createRewrites } from '@burdy/web-utils'; 
+import { createRewrites } from '@burdy-cms/web-utils'; 
 import axios from 'axios';
 
 const rewrites = createRewrites({
@@ -65,7 +65,7 @@ A function for converting Richtext (DraftJS) Editor content to plain HTML.
 This is a forked version of `draftjs-to-html` [draftjs-to-html](https://www.npmjs.com/package/draftjs-to-html) created by [Jyoti Puri](https://github.com/jpuri).
 
 ```ts
-import { richtextToHtml } from '@burdy/web-utils';
+import { richtextToHtml } from '@burdy-cms/web-utils';
 
 const rawContentState = BURDY_RICHTEXT_RESPONSE;
 
@@ -80,7 +80,7 @@ Subscribes to Burdy preview (iframe parent). Returns a `Subscription` that has `
 method.
 
 ```ts
-import { subscribeToPreview } from '@burdy/web-utils';
+import { subscribeToPreview } from '@burdy-cms/web-utils';
 const subscription = subscribeToPreview({
   onEdit: post => {
     updateView(post); // Updates view using new content
@@ -97,7 +97,7 @@ Sends the updates to Burdy preview (iframe parent). This allows Burdy to know wh
 have switched the page on the frontend.
 
 ```ts
-import { updatePreview } from '@burdy/web-utils';
+import { updatePreview } from '@burdy-cms/web-utils';
 
 onRouterChange((pageData) => {
   updatePreview(pageData);

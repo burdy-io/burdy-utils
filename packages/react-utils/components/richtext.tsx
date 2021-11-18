@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {richtextToHtml, CodeHighlight } from '@burdy/web-utils';
+import {richtextToHtml, CodeHighlight } from '@burdy-cms/web-utils';
 
 export type RichTextProps = {
   richText: any;

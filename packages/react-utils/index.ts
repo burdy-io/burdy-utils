@@ -1,3 +1,3 @@
-export * from '@burdy/web-utils';
+export * from '@burdy-cms/web-utils';
 export * from './components';
 export * from './hooks';
