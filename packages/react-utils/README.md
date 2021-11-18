@@ -7,7 +7,7 @@ Powerful utilities to simplify usage of the [Burdy](https://burdy.io) on the web
 ## Instalation
 
 ```sh
-npm i @burdy/web-utils
+npm i @burdy/react-utils
 ```
 
 ## Functionalities
@@ -57,20 +57,6 @@ const [pageRequest, footerRequest, headerRequest] = await Promise.all([
   header
 ]);
 ``` 
-
-# Burdy Web Utils
-
-Powerful utilities to simplify usage of the [Burdy](https://burdy.io) on the web.
-
-- See [Burdy Docs](https://burdy.io/docs) for more details
-
-## Instalation
-
-```sh
-npm i @burdy/react-utils
-```
-
-## Functionalities
 
 ### createRewrites
 
