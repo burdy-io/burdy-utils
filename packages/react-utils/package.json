@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
-    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md"
+    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE"
   },
   "dependencies": {
     "@burdy/web-utils": "^1.0.0"
