@@ -1,20 +1,21 @@
 {
   "name": "@burdy-cms/web-utils",
+  "version": "1.0.0",
   "description": "Burdy web utilities",
   "author": "Team Burdy <team@burdy.io>",
   "homepage": "https://burdy.io",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
-  "publishConfig": {
-    "access": "public",
-    "directory": "dist"
-  },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
     "prepublishOnly": "yarn build"
