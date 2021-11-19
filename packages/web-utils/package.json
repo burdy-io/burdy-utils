@@ -1,14 +1,19 @@
 {
   "name": "@burdy-cms/web-utils",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Burdy web utilities",
   "author": "Team Burdy <team@burdy.io>",
   "homepage": "https://burdy.io",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
-    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
-    "prepublishOnly": "yarn build"
+    "copy-files": "ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
+    "prepublishOnly": "yarn build",
+    "prepack": "ncp package.json dist/package.json"
   },
   "dependencies": {
     "deepcopy": "^2.1.0",
@@ -20,5 +25,6 @@
   },
   "devDependencies": {
     "@types/prismjs": "^1.16.6"
-  }
+  },
+  "gitHead": "b8ebbc3f4a4c32b1de11658c1bbaf90cabb724c0"
 }

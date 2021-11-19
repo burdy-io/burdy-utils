@@ -1,25 +1,28 @@
 {
   "name": "@burdy-cms/react-utils",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Burdy react utilities",
   "author": "Team Burdy <team@burdy.io>",
   "homepage": "https://burdy.io",
   "license": "MIT",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "dist"
   },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
-    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
-    "prepublishOnly": "yarn build"
+    "copy-files": "ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
+    "prepublishOnly": "yarn build",
+    "prepack": "ncp package.json dist/package.json"
   },
   "dependencies": {
-    "@burdy-cms/web-utils": "^0.0.0"
+    "@burdy-cms/web-utils": "workspace:^"
   },
   "peerDependencies": {
     "react": "^17.0.2 || ^18.0.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.35"
-  }
+  },
+  "gitHead": "b8ebbc3f4a4c32b1de11658c1bbaf90cabb724c0"
 }
