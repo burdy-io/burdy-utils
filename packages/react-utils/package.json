@@ -16,7 +16,7 @@
     "prepack": "ncp package.json dist/package.json"
   },
   "dependencies": {
-    "@burdy-cms/web-utils": "^1.0.0"
+    "@burdy-cms/web-utils": "workspace:^"
   },
   "peerDependencies": {
     "react": "^17.0.2 || ^18.0.0"
