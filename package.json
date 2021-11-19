@@ -5,8 +5,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "lerna run start --parallel",
-    "build": "yarn workspaces foreach -pt run build",
-    "publish:packages": "lerna publish --contents dist",
+    "build": "lerna run build --parallel",
+    "publish:packages": "lerna publish",
     "test": "CI=true lerna run test --parallel",
     "typecheck": "lerna run typecheck --parallel",
     "lint": "lerna run lint --parallel",
