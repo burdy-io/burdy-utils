@@ -3959,15 +3959,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ncp@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "ncp@npm:2.0.0"
-  bin:
-    ncp: ./bin/ncp
-  checksum: ea9b19221da1d1c5529bdb9f8e85c9d191d156bcaae408cce5e415b7fbfd8744c288e792bd7faf1fe3b70fd44c74e22f0d43c39b209bc7ac1fb8016f70793a16
-  languageName: node
-  linkType: hard
-
 "negotiator@npm:^0.6.2":
   version: 0.6.2
   resolution: "negotiator@npm:0.6.2"
@@ -5065,7 +5056,6 @@ __metadata:
     "@typescript-eslint/parser": ^4.33.0
     eslint-config-airbnb-typescript: ^14.0.1
     lerna: ^4.0.0
-    ncp: ^2.0.0
     prettier: ^2.4.1
     rimraf: ^3.0.2
     typescript: ^4.4.4
