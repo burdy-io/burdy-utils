@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "lerna run start --parallel",
-    "build": "lerna run build --parallel",
+    "build": "yarn workspaces foreach -pt run build",
     "publish:packages": "lerna publish --contents dist",
     "test": "CI=true lerna run test --parallel",
     "typecheck": "lerna run typecheck --parallel",
