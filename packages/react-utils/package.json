@@ -6,15 +6,17 @@
   "homepage": "https://burdy.io",
   "license": "MIT",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "dist"
   },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
-    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
-    "prepublishOnly": "yarn build"
+    "copy-files": "ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
+    "prepublishOnly": "yarn build",
+    "prepack": "ncp package.json dist/package.json"
   },
   "dependencies": {
-    "@burdy-cms/web-utils": "^0.0.0"
+    "@burdy-cms/web-utils": "^1.0.0"
   },
   "peerDependencies": {
     "react": "^17.0.2 || ^18.0.0"

@@ -5,10 +5,15 @@
   "author": "Team Burdy <team@burdy.io>",
   "homepage": "https://burdy.io",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
-    "copy-files": "ncp package.json dist/package.json && ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
-    "prepublishOnly": "yarn build"
+    "copy-files": "ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
+    "prepublishOnly": "yarn build",
+    "prepack": "ncp package.json dist/package.json"
   },
   "dependencies": {
     "deepcopy": "^2.1.0",
