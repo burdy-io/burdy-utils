@@ -2,10 +2,10 @@
   "name": "root",
   "private": true,
   "license": "MIT",
+  "version": "1.0.0",
   "scripts": {
     "start": "lerna run start --parallel",
     "build": "yarn workspaces foreach -pt run build",
-    "version": "lerna version",
     "publish:packages": "lerna publish --contents dist",
     "test": "CI=true lerna run test --parallel",
     "typecheck": "lerna run typecheck --parallel",
