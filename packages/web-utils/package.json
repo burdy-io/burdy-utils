@@ -5,15 +5,15 @@
   "author": "Team Burdy <team@burdy.io>",
   "homepage": "https://burdy.io",
   "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "publishConfig": {
     "access": "public",
     "directory": "dist"
   },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
-    "copy-files": "ncp README.md dist/README.md && ncp LICENSE dist/LICENSE",
     "prepublishOnly": "yarn build",
-    "prepack": "ncp package.json dist/package.json"
   },
   "dependencies": {
     "deepcopy": "^2.1.0",

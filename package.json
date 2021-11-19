@@ -5,6 +5,7 @@
   "scripts": {
     "start": "lerna run start --parallel",
     "build": "yarn workspaces foreach -pt run build",
+    "version": "lerna version",
     "publish:packages": "lerna publish --contents dist",
     "test": "CI=true lerna run test --parallel",
     "typecheck": "lerna run typecheck --parallel",
@@ -17,7 +18,6 @@
     "@typescript-eslint/parser": "^4.33.0",
     "eslint-config-airbnb-typescript": "^14.0.1",
     "lerna": "^4.0.0",
-    "ncp": "^2.0.0",
     "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "typescript": "^4.4.4"
