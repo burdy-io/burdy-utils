@@ -1,6 +1,6 @@
 {
   "name": "@burdy-cms/web-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Burdy web utilities",
   "author": "Team Burdy <team@burdy.io>",
   "homepage": "https://burdy.io",
@@ -17,7 +17,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "rimraf dist/ && tsc && yarn copy-files",
+    "build": "rimraf dist/ && tsc",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
