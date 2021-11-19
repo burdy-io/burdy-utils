@@ -7,13 +7,18 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "publishConfig": {
     "access": "public",
     "directory": "dist"
   },
   "scripts": {
     "build": "rimraf dist/ && tsc && yarn copy-files",
-    "prepublishOnly": "yarn build",
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "deepcopy": "^2.1.0",
