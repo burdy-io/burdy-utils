@@ -1,6 +1,11 @@
 export * from './model';
 
-export type Rewrites<T extends {}> = {
+export type Rewrites = {
+  source: string;
+  rewrite: string;
+};
+
+export type RewritesMap<T extends {}> = {
   source: string;
   rewrites: {
     [key in keyof T]: string;
@@ -9,7 +14,8 @@ export type Rewrites<T extends {}> = {
 
 export type RewriteOptions<T extends {}> = {
   origin?: string;
-  rewriteMap: Rewrites<T>[];
+  rewrite?: Rewrites[];
+  rewriteMap?: RewritesMap<T>[];
 }
 
 export type RewritesReturn<T> = {
@@ -17,7 +23,9 @@ export type RewritesReturn<T> = {
 }
 
 export type RewritesObject<T extends {}> = {
-  rewrite: (path: string) => RewritesReturn<T>;
+  rewriteMap: (path: string) => RewritesReturn<T>;
+  rewrite: (path: string) => string | undefined;
   getOrigin: () => string | undefined;
-  getRewriteMap: () => Rewrites<T>[];
+  getRewrite: () => Rewrites[];
+  getRewriteMap: () => RewritesMap<T>[];
 }
