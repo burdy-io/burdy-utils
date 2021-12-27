@@ -1,7 +1,7 @@
 import { IBurdyPage, IBurdyTag } from '../types';
 import axios from 'axios';
 
-type GetPageOptions = {
+export type GetPageOptions = {
   draft?: boolean;
 
   /**
@@ -22,7 +22,7 @@ type GetPageOptions = {
   xContentToken?: string;
 };
 
-type SearchPostsOptions = {
+export type SearchPagesOptions = {
   draft?: boolean;
   type?: string;
   contentTypeName?: string;
@@ -41,7 +41,7 @@ type SearchPostsOptions = {
   xContentToken: string;
 };
 
-type SearchTagsOptions = {
+export type SearchTagsOptions = {
   search?: string;
   parent?: string;
   onlyOrphans?: boolean;
@@ -76,7 +76,7 @@ export const BurdyApi = {
 
     return page;
   },
-  searchPages: async <T = any>(host: string, options: SearchPostsOptions): Promise<IBurdyPage<T>[]> => {
+  searchPages: async <T = any>(host: string, options: SearchPagesOptions): Promise<IBurdyPage<T>[]> => {
     const headers: Record<string, string> = {};
     const params: Record<string, boolean | number | string> = {};
 

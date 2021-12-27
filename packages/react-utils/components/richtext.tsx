@@ -7,13 +7,17 @@ import { CodeHighlight } from '@burdy-cms/web-utils';
 export type RichTextProps = {
   as?: 'div' | 'article' | 'section';
   blocks?: any[];
+  richText?: {
+    blocks?: any[];
+    entityMap?: any;
+  }
   codeHighlight?: boolean;
-} & Omit<BlockTypeProps, 'block'>;
+} & Pick<BlockTypeProps, 'onRenderEntity'>;
 
 const RichText: FC<RichTextProps> = (props) => {
-  const { blocks, as, onRenderEntity, entityMap, codeHighlight } = props;
+  const { richText, as, onRenderEntity, codeHighlight } = props;
 
-  const reduced = reduceBlocks(Array.isArray(blocks) ? blocks : []);
+  const reduced = reduceBlocks(Array.isArray(richText?.blocks) ? richText?.blocks : []);
   const CustomAs = as || 'div';
 
   useEffect(() => {
@@ -25,7 +29,7 @@ const RichText: FC<RichTextProps> = (props) => {
   return (
     <CustomAs>
       {(reduced || []).map((block) => {
-        return <Block key={block.key} block={block} entityMap={entityMap} onRenderEntity={onRenderEntity} />;
+        return <Block key={block.key} block={block} entityMap={richText?.entityMap} onRenderEntity={onRenderEntity} />;
       })}
     </CustomAs>
   );
