@@ -20,8 +20,8 @@ const RichText: FC<RichTextProps> = (props) => {
     if (codeHighlight) {
       CodeHighlight.highlightAll();
     }
-  }, []);
-
+  }, [reduced, codeHighlight]);
+  
   return (
     <CustomAs>
       {(reduced || []).map((block) => {
