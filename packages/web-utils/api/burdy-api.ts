@@ -58,19 +58,8 @@ export type IBurdyApiConfig = {
   host?: string;
 }
 
-export class BurdyApi {
-  host?: string;
-
-  constructor(config?: IBurdyApiConfig) {
-    this.host = config?.host;
-  }
-
-  private getUrl = (url: string) => {
-    if (!(this.host?.length > 0)) return url;
-    return `${this.host}${url}`;
-  }
-
-  public getPage = async <T = any>(slugPath: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => {
+export const BurdyApi = {
+  getPage: async <T = any>(url: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => {
     const headers: Record<string, string> = {};
     const params: Record<string, boolean | number | string> = {};
 
@@ -84,15 +73,14 @@ export class BurdyApi {
     if (options?.relationsDepth) params.relationsDepth = options?.relationsDepth;
     if (options?.draft) params.draft = options?.draft;
 
-    const { data } = await axios.get<IBurdyPage<T>>(this.getUrl(`/api/content/${slugPath}`), {
+    const { data: page } = await axios.get<IBurdyPage<T>>(url, {
       params,
       headers
     });
 
-    return data;
-  };
-
-  public searchPages = async <T = any>(options?: SearchPostsOptions): Promise<IBurdyPage<T>[]> => {
+    return page;
+  },
+  searchPages: async <T = any>(host: string, options: SearchPostsOptions): Promise<IBurdyPage<T>[]> => {
     const headers: Record<string, string> = {};
     const params: Record<string, boolean | number | string> = {};
 
@@ -114,14 +102,13 @@ export class BurdyApi {
     if (options?.limit) params.limit = options.limit;
     if (options?.page) params.page = options.page;
 
-    const { data: posts } = await axios.get<IBurdyPage[]>(this.getUrl('/api/search/posts'), {
+    const { data: pages } = await axios.get<IBurdyPage[]>(`${host}/api/search/posts`, {
       params,
       headers
     });
-    return posts;
-  };
-
-  public searchTags = async (options?: SearchTagsOptions): Promise<IBurdyTag[]> => {
+    return pages;
+  },
+  searchTags: async (host: string, options: SearchTagsOptions): Promise<IBurdyTag[]> => {
     const headers: Record<string, string> = {};
     const params: Record<string, boolean | number | string> = {};
 
@@ -137,13 +124,10 @@ export class BurdyApi {
     if (options?.limit) params.limit = options.limit;
     if (options?.page) params.page = options.page;
 
-    const { data: tags } = await axios.get<IBurdyTag[]>(this.getUrl('/api/search/tags'), {
+    const { data: tags } = await axios.get<IBurdyTag[]>(`${host}/api/search/posts`, {
       params,
       headers
     });
     return tags;
-  };
+  }
 }
-
-const api = new BurdyApi();
-const pages = await api.searchPages();
