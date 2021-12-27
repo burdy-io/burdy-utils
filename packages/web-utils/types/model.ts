@@ -1,21 +1,33 @@
-export interface IBurdyPage<T extends {}> {
+export type IBurdyAuthor = {
+  firstName?: string;
+  lastName?: string;
+}
+
+export type IBurdyContentType = {
+  name: string;
+  type: string;
+  fields?: any[];
+}
+
+export interface IBurdyPage<T extends {} = any> {
   id: number;
   name: string;
+  type: string;
   slug: string;
   slugPath: string;
+  createdAt: Date;
   updatedAt: Date;
-  contentType: {
-    name: string;
-    type: string;
-  };
-  author: {
-    firstName: string;
-    lastName: string;
-  };
-  meta: {
+  publishedAt?: Date;
+  publishedFrom?: Date;
+  publishedUntil?: Date;
+  status?: string;
+  parent?: IBurdyPage;
+  contentType?: IBurdyContentType;
+  author?: IBurdyAuthor;
+  meta?: {
     content: T;
-  };
-  tags: IBurdyTag[];
+  } & any;
+  tags?: IBurdyTag[];
 }
 
 export interface IBurdyTag {
@@ -23,7 +35,8 @@ export interface IBurdyTag {
   name: string;
   slug: string;
   slugPath: string;
-  parent: Omit<IBurdyTag, 'parent'>;
+  author?: IBurdyAuthor;
+  parent?: Omit<IBurdyTag, 'parent'>;
 }
 
 export interface IBurdyImage {
