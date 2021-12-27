@@ -15,6 +15,10 @@ const RichText: React.VoidFunctionComponent<RichTextProps> = (props) => {
     CodeHighlight.highlightAll();
   }, []);
 
+  useEffect(() => {
+    CodeHighlight.highlightAll();
+  }, [richText]);
+
   return <article dangerouslySetInnerHTML={{__html: richtextToHtml(richText)}} {...rest} />;
 }
 

@@ -1,7 +1,7 @@
 import { IBurdyPage, subscribeToPreview, updatePreview } from '@burdy-cms/web-utils';
 import { useEffect, useState } from 'react';
 
-const usePreview = <T>(originalPage: IBurdyPage<any>) => {
+export const usePreview = <T>(originalPage: IBurdyPage<any>) => {
   const [page, setPage] = useState(originalPage);
 
   useEffect(() => {
