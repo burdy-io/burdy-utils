@@ -21,7 +21,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@burdy-cms/web-utils": "1.0.1"
+    "@burdy-cms/web-utils": "1.0.1",
+    "nanoid": "^3.1.30"
   },
   "peerDependencies": {
     "react": "^17.0.2 || ^18.0.0"
