@@ -54,10 +54,6 @@ type SearchTagsOptions = {
   xContentToken: string;
 };
 
-export type IBurdyApiConfig = {
-  host?: string;
-}
-
 export const BurdyApi = {
   getPage: async <T = any>(url: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => {
     const headers: Record<string, string> = {};

@@ -21,13 +21,15 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "axios": ">= 0.21",
     "deepcopy": "^2.1.0",
     "path-to-regexp": "^6.2.0",
     "prismjs": "^1.25.0"
   },
   "devDependencies": {
     "@types/prismjs": "^1.16.6"
+  },
+  "peerDependencies": {
+    "axios": ">= 0.21"
   },
   "gitHead": "b8ebbc3f4a4c32b1de11658c1bbaf90cabb724c0"
 }
