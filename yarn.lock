@@ -36,7 +36,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@burdy-cms/react-utils@workspace:packages/react-utils"
   dependencies:
-    "@burdy-cms/web-utils": 1.0.1
+    "@burdy-cms/web-utils": 1.1.0
     "@types/react": ^17.0.35
     nanoid: ^3.1.30
   peerDependencies:
@@ -44,7 +44,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@burdy-cms/web-utils@1.0.1, @burdy-cms/web-utils@workspace:packages/web-utils":
+"@burdy-cms/web-utils@1.1.0, @burdy-cms/web-utils@workspace:packages/web-utils":
   version: 0.0.0-use.local
   resolution: "@burdy-cms/web-utils@workspace:packages/web-utils"
   dependencies:
