@@ -9,7 +9,6 @@
     "test": "CI=true lerna run test --parallel",
     "typecheck": "lerna run typecheck --parallel",
     "lint": "lerna run lint --parallel",
-    "bootstrap": "lerna bootstrap",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\" --ignore-path .gitignore"
   },
   "devDependencies": {
