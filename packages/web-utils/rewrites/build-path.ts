@@ -1,6 +1,6 @@
 import { Key, pathToRegexp } from 'path-to-regexp';
 import deepcopy from 'deepcopy';
-import { RewriteDestination, Rewrites, RewritesMap, RewritesReturn } from '../types';
+import { RewriteDestination, RewritesMap } from '../types';
 
 const RESERVED_KEY = '$__path';
 
@@ -29,7 +29,7 @@ const normalizeDestination = <T>(destination: RewriteDestination<T>): RewriteDes
     destination[RESERVED_KEY] :
     destination
 
-export const matchAndRewriteMap = <T>(path: string, map: RewritesMap<T>[] = [], baseUrl = ''): RewritesReturn<T> => {
+export const matchAndRewriteMap = <T>(path: string, map: RewritesMap<T>[] = [], baseUrl = ''): RewriteDestination<T> => {
   let resultArray: RegExpExecArray | null;
   let keys: Key[] = [];
   map = deepcopy(map);
@@ -43,7 +43,7 @@ export const matchAndRewriteMap = <T>(path: string, map: RewritesMap<T>[] = [], 
   });
 
   if (!rule) {
-    const firstDestination = normalizeDestination(map?.[0]?.destination || '');
+    const firstDestination = normalizeDestination(map?.[0]?.destination || '' as any);
     return typeof firstDestination === 'string' ?
       null :
       Object.keys(firstDestination).reduce(
@@ -51,7 +51,7 @@ export const matchAndRewriteMap = <T>(path: string, map: RewritesMap<T>[] = [], 
           ...previousValue,
           [currentValue]: null
         }), {}
-      );
+      ) as any;
   }
 
   const params: Record<Key['name'], string | undefined> = {};
