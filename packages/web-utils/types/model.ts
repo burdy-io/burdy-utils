@@ -39,6 +39,13 @@ export interface IBurdyTag {
   parent?: Omit<IBurdyTag, 'parent'>;
 }
 
+export type IBurdySearch<T = any> = {
+  count: number;
+  results: T[];
+  page?: number;
+  limit?: number;
+}
+
 export interface IBurdyImage {
   id?: number;
   name?: string;
