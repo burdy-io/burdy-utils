@@ -1,4 +1,4 @@
-import { IBurdyPage, IBurdyTag } from '../types';
+import { IBurdyPage, IBurdySearch, IBurdyTag } from '../types';
 import axios from 'axios';
 
 export type GetPageOptions = {
@@ -76,7 +76,7 @@ export const BurdyApi = {
 
     return page;
   },
-  searchPages: async <T = any>(host: string, options: SearchPagesOptions): Promise<IBurdyPage<T>[]> => {
+  searchPages: async <T = any>(host: string, options: SearchPagesOptions): Promise<IBurdySearch<IBurdyPage<T>>> => {
     const headers: Record<string, string> = {};
     const params: Record<string, boolean | number | string> = {};
 
@@ -98,13 +98,13 @@ export const BurdyApi = {
     if (options?.limit) params.limit = options.limit;
     if (options?.page) params.page = options.page;
 
-    const { data: pages } = await axios.get<IBurdyPage[]>(`${host}/api/search/posts`, {
+    const { data } = await axios.get<IBurdySearch<IBurdyPage<T>>>(`${host}/api/search/posts`, {
       params,
       headers
     });
-    return pages;
+    return data;
   },
-  searchTags: async (host: string, options: SearchTagsOptions): Promise<IBurdyTag[]> => {
+  searchTags: async (host: string, options: SearchTagsOptions): Promise<IBurdySearch<IBurdyTag>> => {
     const headers: Record<string, string> = {};
     const params: Record<string, boolean | number | string> = {};
 
@@ -120,10 +120,10 @@ export const BurdyApi = {
     if (options?.limit) params.limit = options.limit;
     if (options?.page) params.page = options.page;
 
-    const { data: tags } = await axios.get<IBurdyTag[]>(`${host}/api/search/posts`, {
+    const { data } = await axios.get<IBurdySearch<IBurdyTag>>(`${host}/api/search/tags`, {
       params,
       headers
     });
-    return tags;
+    return data;
   }
 }
