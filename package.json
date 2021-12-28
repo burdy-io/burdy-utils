@@ -6,19 +6,24 @@
     "start": "lerna run start --parallel",
     "build": "lerna run build --parallel",
     "publish:packages": "lerna publish",
-    "test": "CI=true lerna run test --parallel",
+    "test": "CI=true jest",
     "typecheck": "lerna run typecheck --parallel",
     "lint": "lerna run lint --parallel",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\" --ignore-path .gitignore"
   },
   "devDependencies": {
+    "@types/faker": "^5.5.9",
+    "@types/jest": "^27.0.3",
     "@types/node": "^16.11.6",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
     "eslint-config-airbnb-typescript": "^14.0.1",
+    "jest": "^27.4.5",
     "lerna": "^4.0.0",
     "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
+    "ts-jest": "^27.1.2",
+    "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   },
   "workspaces": {
@@ -26,5 +31,8 @@
       "packages/*"
     ]
   },
-  "packageManager": "yarn@3.1.0"
+  "packageManager": "yarn@3.1.0",
+  "dependencies": {
+    "faker": "^5.5.3"
+  }
 }
