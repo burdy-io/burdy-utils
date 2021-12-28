@@ -5,27 +5,22 @@ export type Rewrites = {
   rewrite: string;
 };
 
-export type RewritesMap<T extends {}> = {
+export type RewriteDestination<T> = T extends string ?
+  string | null :
+  { [key in keyof T]: string | null }
+
+export type RewritesMap<T extends {} | string> = {
   source: string;
-  rewrites: {
-    [key in keyof T]: string;
-  }
+  destination: RewriteDestination<T>;
 };
 
-export type RewriteOptions<T extends {}> = {
+export type RewriteOptions<T extends {} | string> = {
   origin?: string;
-  rewrite?: Rewrites[];
-  rewriteMap?: RewritesMap<T>[];
+  rewrite: RewritesMap<T>[];
 }
 
-export type RewritesReturn<T> = {
-  [key in keyof T]: string;
-}
-
-export type RewritesObject<T extends {}> = {
-  rewriteMap: (path: string) => RewritesReturn<T>;
-  rewrite: (path: string) => string | undefined;
+export type RewritesObject<T extends {} | string> = {
+  rewrite: (path: string) => RewriteDestination<T>;
   getOrigin: () => string | undefined;
-  getRewrite: () => Rewrites[];
-  getRewriteMap: () => RewritesMap<T>[];
+  getRewrite: () => RewritesMap<T>[];
 }

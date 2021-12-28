@@ -1,6 +1,8 @@
 import { Key, pathToRegexp } from 'path-to-regexp';
 import deepcopy from 'deepcopy';
-import { Rewrites, RewritesMap, RewritesReturn } from '../types';
+import { RewriteDestination, Rewrites, RewritesMap, RewritesReturn } from '../types';
+
+const RESERVED_KEY = '$__path';
 
 const escapeRegExp = (str: string) => {
   return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
@@ -14,34 +16,24 @@ export const rewrite = (string: string, params: Record<Key['name'], string | und
   return tmpString;
 };
 
-export const matchAndRewrite = (path: string, map: Rewrites[]): string => {
-  let resultArray: RegExpExecArray | null;
-  let keys: Key[] = [];
-  map = deepcopy(map);
+const normalizeRewritesMap = <T>(rewrites: RewritesMap<T>[]): RewritesMap<T>[] =>
+  rewrites.map<RewritesMap<any>>(rewrite => ({
+    ...rewrite,
+    destination: typeof rewrite.destination === 'string' ?
+      { [RESERVED_KEY]: rewrite.destination } :
+      rewrite.destination
+  }));
 
-  const rule = map.find((rule) => {
-    keys = [];
-    const regexp = pathToRegexp(rule.source, keys);
-    resultArray = regexp.exec(path);
-    return !!resultArray;
-  });
-
-  if (!rule) {
-    return null;
-  }
-
-  const params: Record<Key['name'], string | undefined> = {};
-  keys.forEach((key, index) => {
-    params[key.name] = resultArray?.[index + 1];
-  });
-
-  return rewrite(rule?.rewrite || '', params);
-};
+const normalizeDestination = <T>(destination: RewriteDestination<T>): RewriteDestination<T> =>
+  Object.keys(destination).length === 1 && destination?.[RESERVED_KEY] ?
+    destination[RESERVED_KEY] :
+    destination
 
 export const matchAndRewriteMap = <T>(path: string, map: RewritesMap<T>[] = [], baseUrl = ''): RewritesReturn<T> => {
   let resultArray: RegExpExecArray | null;
   let keys: Key[] = [];
   map = deepcopy(map);
+  map = normalizeRewritesMap(map);
 
   const rule = map.find((rule) => {
     keys = [];
@@ -51,13 +43,15 @@ export const matchAndRewriteMap = <T>(path: string, map: RewritesMap<T>[] = [], 
   });
 
   if (!rule) {
-    return Object.keys(map).reduce(
-      (previousValue, currentValue) => ({
-        ...previousValue,
-        [currentValue]: null,
-      }),
-      {}
-    ) as RewritesReturn<T>;
+    const firstDestination = normalizeDestination(map?.[0]?.destination || '');
+    return typeof firstDestination === 'string' ?
+      null :
+      Object.keys(firstDestination).reduce(
+        (previousValue, currentValue) => ({
+          ...previousValue,
+          [currentValue]: null
+        }), {}
+      );
   }
 
   const params: Record<Key['name'], string | undefined> = {};
@@ -66,12 +60,9 @@ export const matchAndRewriteMap = <T>(path: string, map: RewritesMap<T>[] = [], 
     params[key.name] = resultArray?.[index + 1];
   });
 
-  Object.keys(rule.rewrites || {}).forEach((key) => {
-    rule.rewrites = {
-      ...(rule.rewrites || {}),
-      [key]: baseUrl.replace(/\/$/i, '') + rewrite((rule.rewrites as any)?.[key] as string, params),
-    } as any;
+  Object.keys(rule.destination || {}).forEach((key) => {
+    rule.destination[key] = baseUrl.replace(/\/$/i, '') + rewrite((rule.destination as any)?.[key] as string, params);
   });
 
-  return rule.rewrites;
+  return normalizeDestination(rule.destination);
 };
