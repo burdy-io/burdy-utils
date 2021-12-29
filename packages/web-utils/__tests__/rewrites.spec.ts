@@ -65,7 +65,7 @@ describe('rewrites', function () {
     expect(rewrites.rewrite(`/fr/${path}`)).toBe(`${origin}/sites/fr/${path}`);
     expect(rewrites.rewrite(`/de/${path}`)).toBe(`${origin}/sites/de/${path}`);
     expect(rewrites.rewrite(`/${path}`)).toBe(`${origin}/sites/en/${path}`);
-    expect(rewrites.rewrite(path)).toBe(null);
+    expect(rewrites.rewrite(path)).toBeNull();
   });
 
   it('rewrites object map', () => {
@@ -119,11 +119,6 @@ describe('rewrites', function () {
       docsMenu: `${origin}/sites/en/fragments/docs-menu`
     });
 
-    expect(rewrites.rewrite(path)).toMatchObject({
-      page: null,
-      header: null,
-      footer: null,
-      docsMenu: null
-    });
+    expect(rewrites.rewrite(path)).toBeNull();
   });
 });
