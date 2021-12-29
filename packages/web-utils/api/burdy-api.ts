@@ -1,4 +1,4 @@
-import { IBurdyPage, IBurdySearch, IBurdyTag } from '../types';
+import { IBurdyPage, IBurdySearch, IBurdyTag, RewritesObject } from '../types';
 import axios from 'axios';
 
 export type GetPageOptions = {
@@ -38,7 +38,7 @@ export type SearchPagesOptions = {
   order?: 'ASC' | 'DESC';
   limit?: number;
   page?: number;
-  xContentToken: string;
+  xContentToken?: string;
 };
 
 export type SearchTagsOptions = {
@@ -51,11 +51,11 @@ export type SearchTagsOptions = {
   order?: 'ASC' | 'DESC';
   limit?: number;
   page?: number;
-  xContentToken: string;
+  xContentToken?: string;
 };
 
 export const BurdyApi = {
-  getPage: async <T = any>(url: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => {
+  getPage: async <T = any>(host?: string, slugPath?: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => {
     const headers: Record<string, string> = {};
     const params: Record<string, boolean | number | string> = {};
 
@@ -69,7 +69,7 @@ export const BurdyApi = {
     if (options?.relationsDepth) params.relationsDepth = options?.relationsDepth;
     if (options?.draft) params.draft = options?.draft;
 
-    const { data: page } = await axios.get<IBurdyPage<T>>(url, {
+    const { data: page } = await axios.get<IBurdyPage<T>>(`${host}/api/content/${slugPath}`, {
       params,
       headers
     });
@@ -126,4 +126,29 @@ export const BurdyApi = {
     });
     return data;
   }
+};
+
+export type ApiConfig = {
+  host: string;
+  xContentToken?: string;
+};
+
+export type CreateApiType = {
+  getPage: <T = any>(slugPath: string, options?: GetPageOptions) => Promise<IBurdyPage<T>>;
+  searchPages: <T = any>(options: SearchPagesOptions) => Promise<IBurdySearch<IBurdyPage<T>>>;
+  searchTags: (options: SearchTagsOptions) => Promise<IBurdySearch<IBurdyTag>>;
 }
+export const createApi = (apiConfig: ApiConfig): CreateApiType => ({
+  getPage: async <T = any>(slugPath: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => BurdyApi.getPage(apiConfig?.host, slugPath, {
+    xContentToken: apiConfig?.xContentToken,
+    ...(options || {})
+  }),
+  searchPages: async <T = any>(options: SearchPagesOptions): Promise<IBurdySearch<IBurdyPage<T>>> => BurdyApi.searchPages(apiConfig?.host, {
+    xContentToken: apiConfig?.xContentToken,
+    ...(options || {})
+  }),
+  searchTags: async (options: SearchTagsOptions): Promise<IBurdySearch<IBurdyTag>> => BurdyApi.searchTags(apiConfig?.host, {
+    xContentToken: apiConfig?.xContentToken,
+    ...(options || {})
+  })
+});
