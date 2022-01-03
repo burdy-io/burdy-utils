@@ -14,7 +14,7 @@ export const rewrite = (string: string, params: Record<Key['name'], string | und
   return tmpString;
 };
 
-export const matchAndRewriteMap = <T>(path: string, map: RewritesMap<T>[] = [], baseUrl = ''): RewriteDestination<T> | null => {
+export const matchAndRewriteMap = <T = any>(path: string, map: RewritesMap<T>[] = [], baseUrl = ''): T | string | null => {
   let resultArray: RegExpExecArray | null;
   let keys: Key[] = [];
   map = deepcopy(map);
@@ -40,13 +40,14 @@ export const matchAndRewriteMap = <T>(path: string, map: RewritesMap<T>[] = [], 
   }
 
   if (typeof rule?.destination === 'object') {
+    let destination = {};
     Object.keys(rule.destination || {}).forEach((key) => {
-      rule.destination = {
-        ...(rule.destination || {}),
+      destination = {
+        ...destination,
         [key]: baseUrl.replace(/\/$/i, '') + rewrite((rule.destination as any)?.[key] as string, params)
-      } as any;
+      }
     });
-    return rule.destination;
+    return destination as T;
   }
   return null;
 };
