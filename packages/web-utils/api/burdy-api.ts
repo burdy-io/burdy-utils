@@ -133,17 +133,17 @@ export type ApiConfig = {
   xContentToken?: string;
 };
 
-export interface CreateApiType {
-  getPage: (slugPath: string, options?: GetPageOptions) => Promise<IBurdyPage>;
-  searchPages: (options: SearchPagesOptions) => Promise<IBurdySearch<IBurdyPage>>;
+export type CreateApiType = {
+  getPage: <T = any>(slugPath: string, options?: GetPageOptions) => Promise<IBurdyPage<T>>;
+  searchPages: <T = any>(options: SearchPagesOptions) => Promise<IBurdySearch<IBurdyPage<T>>>;
   searchTags: (options: SearchTagsOptions) => Promise<IBurdySearch<IBurdyTag>>;
 }
 export const createApi = (apiConfig: ApiConfig): CreateApiType => ({
-  getPage: async (slugPath: string, options?: GetPageOptions): Promise<IBurdyPage> => BurdyApi.getPage(apiConfig?.host, slugPath, {
+  getPage: async <T>(slugPath: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => BurdyApi.getPage(apiConfig?.host, slugPath, {
     xContentToken: apiConfig?.xContentToken,
     ...(options || {})
   }),
-  searchPages: async (options: SearchPagesOptions): Promise<IBurdySearch<IBurdyPage>> => BurdyApi.searchPages(apiConfig?.host, {
+  searchPages: async <T>(options: SearchPagesOptions): Promise<IBurdySearch<IBurdyPage<T>>> => BurdyApi.searchPages(apiConfig?.host, {
     xContentToken: apiConfig?.xContentToken,
     ...(options || {})
   }),
