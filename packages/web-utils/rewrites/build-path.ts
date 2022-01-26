@@ -1,6 +1,6 @@
 import { Key, pathToRegexp } from 'path-to-regexp';
 import deepcopy from 'deepcopy';
-import { RewriteDestination, RewritesMap } from '../types';
+import { RewritesMap } from '../types';
 
 const escapeRegExp = (str: string) => {
   return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
@@ -14,7 +14,7 @@ export const rewrite = (string: string, params: Record<Key['name'], string | und
   return tmpString;
 };
 
-export const matchAndRewriteMap = <T = any>(path: string, map: RewritesMap<T>[] = [], baseUrl = ''): T | string | null => {
+export const matchAndRewriteMap = <T = any>(path: string, map: RewritesMap<T>[] = [], baseUrl = ''): T => {
   let resultArray: RegExpExecArray | null;
   let keys: Key[] = [];
   map = deepcopy(map);
@@ -36,7 +36,7 @@ export const matchAndRewriteMap = <T = any>(path: string, map: RewritesMap<T>[] 
   });
 
   if (typeof rule?.destination === 'string') {
-    return baseUrl.replace(/\/$/i, '') + rewrite(rule?.destination || '', params);
+    return baseUrl.replace(/\/$/i, '') + rewrite(rule?.destination || '', params) as unknown as T;
   }
 
   if (typeof rule?.destination === 'object') {
