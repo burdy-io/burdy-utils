@@ -20,7 +20,7 @@ export type RewriteOptions<T extends {} | string> = {
 }
 
 export type RewritesObject<T extends {} | string> = {
-  rewrite: (path: string) => string | null | T;
+  rewrite: (path: string) => T;
   getOrigin: () => string | undefined;
   getRewrite: () => RewritesMap<T>[];
 }
