@@ -104,9 +104,9 @@ export const BurdyApi = {
     });
     return data;
   },
-  optimizeImage: async (host: string, imageOptions: OptimizeImageOptions): string => {
+  optimizeImage: async (host: string, npath: string, imageOptions: OptimizeImageOptions): string => {
     const query = queryString.stringify(imageOptions, {skipEmptyString: true, skipNull: true});
-    return `${host}/api/image?${query}`;
+    return `${host}/api/image/${npath}?${query}`;
   }
 };
 
@@ -119,7 +119,7 @@ export type CreateApiType = {
   getPage: <T = any>(slugPath: string, options?: GetPageOptions) => Promise<IBurdyPage<T>>;
   searchPages: <T = any>(options: SearchPagesOptions) => Promise<IBurdySearch<IBurdyPage<T>>>;
   searchTags: (options: SearchTagsOptions) => Promise<IBurdySearch<IBurdyTag>>;
-  optimizeImage: (options: OptimizeImageOptions) => string;
+  optimizeImage: (npath: string, options: OptimizeImageOptions) => string;
 }
 export const createApi = (apiConfig: ApiConfig): CreateApiType => ({
   getPage: async <T>(slugPath: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => BurdyApi.getPage(apiConfig?.host, slugPath, {
@@ -134,5 +134,5 @@ export const createApi = (apiConfig: ApiConfig): CreateApiType => ({
     xContentToken: apiConfig?.xContentToken,
     ...(options || {})
   }),
-  optimizeImage: (options: OptimizeImageOptions): string => BurdyApi.optimizeImage(apiConfig?.host, options)
+  optimizeImage: (npath, options): string => BurdyApi.optimizeImage(apiConfig?.host, npath, options)
 });
