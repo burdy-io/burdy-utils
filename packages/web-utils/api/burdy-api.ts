@@ -1,5 +1,6 @@
 import { IBurdyPage, IBurdySearch, IBurdyTag, RewritesObject } from '../types';
 import axios from 'axios';
+import queryString from 'query-string';
 
 export type GetPageOptions = {
   draft?: boolean;
@@ -54,20 +55,24 @@ export type SearchTagsOptions = {
   xContentToken?: string;
 };
 
+export type OptimizeImageOptions = {
+  // General
+  animated?: boolean;
+  progressive?: boolean;
+  format?: 'auto' | 'avif' | 'webp' | 'jpeg' | 'jpg' | 'png';
+  quality?: number;
+  // Resizing
+  width?: number;
+  height?: number;
+  fit?: 'fill' | 'cover' | 'contain' | 'inside' | 'outside';
+  gravity?: 'north' | 'northeast' | 'southeast' | 'south' | 'southwest' | 'west' | 'northwest' | 'east' | 'center' | 'centre';
+}
+
 export const BurdyApi = {
-  getPage: async <T = any>(host?: string, slugPath?: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => {
+  getPage: async <T = any>(host?: string, slugPath?: string, params: GetPageOptions = {}): Promise<IBurdyPage<T>> => {
     const headers: Record<string, string> = {};
-    const params: Record<string, boolean | number | string> = {};
 
-    if (options?.includeChildren) params.includeChildren = options.includeChildren;
-    if (options?.perPage) params.perPage = options.perPage;
-    if (options?.page) params.page = options.page;
-
-    if (options?.xContentToken) headers['x-content-token'] = options?.xContentToken;
-
-    if (options?.versionId) params.versionId = options?.versionId;
-    if (options?.relationsDepth) params.relationsDepth = options?.relationsDepth;
-    if (options?.draft) params.draft = options?.draft;
+    if (params?.xContentToken) headers['x-content-token'] = params?.xContentToken;
 
     const { data: page } = await axios.get<IBurdyPage<T>>(`${host}/api/content/${slugPath}`, {
       params,
@@ -76,27 +81,11 @@ export const BurdyApi = {
 
     return page;
   },
-  searchPages: async <T = any>(host: string, options: SearchPagesOptions): Promise<IBurdySearch<IBurdyPage<T>>> => {
+  searchPages: async <T = any>(host: string, params: SearchPagesOptions): Promise<IBurdySearch<IBurdyPage<T>>> => {
     const headers: Record<string, string> = {};
-    const params: Record<string, boolean | number | string> = {};
 
-    if (options?.xContentToken) headers['x-content-token'] = options?.xContentToken;
-
-    if (options?.draft) params.draft = true;
-    if (options?.type) params.type = options.type;
-    if (options?.contentTypeName) params.contentTypeName = options.contentTypeName;
-    if (options?.search) params.search = options.search;
-    if (options?.parent) params.parent = options.parent;
-    if (options?.onlyOrphans) params.onlyOrphans = options.onlyOrphans;
-    if (options?.slugPath) params.slugPath = options.slugPath;
-    if (options?.tags) params.tags = options.tags;
-    if (options?.expand) params.expand = options.expand;
-    if (options?.compile) params.compile = options.compile;
-    if (options?.relationsDepth) params.relationsDepth = options.relationsDepth;
-    if (options?.orderBy) params.orderBy = options.orderBy;
-    if (options?.order) params.order = options.order;
-    if (options?.limit) params.limit = options.limit;
-    if (options?.page) params.page = options.page;
+    if (params?.xContentToken) headers['x-content-token'] = params?.xContentToken;
+    if (params?.draft) params.draft = true;
 
     const { data } = await axios.get<IBurdySearch<IBurdyPage<T>>>(`${host}/api/search/posts`, {
       params,
@@ -104,27 +93,20 @@ export const BurdyApi = {
     });
     return data;
   },
-  searchTags: async (host: string, options: SearchTagsOptions): Promise<IBurdySearch<IBurdyTag>> => {
+  searchTags: async (host: string, params: SearchTagsOptions): Promise<IBurdySearch<IBurdyTag>> => {
     const headers: Record<string, string> = {};
-    const params: Record<string, boolean | number | string> = {};
 
-    if (options?.xContentToken) headers['x-content-token'] = options?.xContentToken;
-
-    if (options?.search) params.search = options.search;
-    if (options?.parent) params.parent = options.parent;
-    if (options?.onlyOrphans) params.onlyOrphans = options.onlyOrphans;
-    if (options?.slugPath) params.slugPath = options.slugPath;
-    if (options?.expand) params.expand = options.expand;
-    if (options?.orderBy) params.orderBy = options.orderBy;
-    if (options?.order) params.order = options.order;
-    if (options?.limit) params.limit = options.limit;
-    if (options?.page) params.page = options.page;
+    if (params?.xContentToken) headers['x-content-token'] = params?.xContentToken;
 
     const { data } = await axios.get<IBurdySearch<IBurdyTag>>(`${host}/api/search/tags`, {
       params,
       headers
     });
     return data;
+  },
+  optimizeImage: async (host: string, imageOptions: OptimizeImageOptions): string => {
+    const query = queryString.stringify(imageOptions, {skipEmptyString: true, skipNull: true});
+    return `${host}/api/image?${query}`;
   }
 };
 
@@ -137,6 +119,7 @@ export type CreateApiType = {
   getPage: <T = any>(slugPath: string, options?: GetPageOptions) => Promise<IBurdyPage<T>>;
   searchPages: <T = any>(options: SearchPagesOptions) => Promise<IBurdySearch<IBurdyPage<T>>>;
   searchTags: (options: SearchTagsOptions) => Promise<IBurdySearch<IBurdyTag>>;
+  optimizeImage: (options: OptimizeImageOptions) => string;
 }
 export const createApi = (apiConfig: ApiConfig): CreateApiType => ({
   getPage: async <T>(slugPath: string, options?: GetPageOptions): Promise<IBurdyPage<T>> => BurdyApi.getPage(apiConfig?.host, slugPath, {
@@ -150,5 +133,6 @@ export const createApi = (apiConfig: ApiConfig): CreateApiType => ({
   searchTags: async (options: SearchTagsOptions): Promise<IBurdySearch<IBurdyTag>> => BurdyApi.searchTags(apiConfig?.host, {
     xContentToken: apiConfig?.xContentToken,
     ...(options || {})
-  })
+  }),
+  optimizeImage: (options: OptimizeImageOptions): string => BurdyApi.optimizeImage(apiConfig?.host, options)
 });
